@@ -46,7 +46,7 @@ export default function LoginPage() {
                 className="w-[25vw] max-h-full"
               />
             </div>
-            <p className="text-xs lg:text-sm xl:text-base">"Here for all your Project Management needs"</p>
+            <p className="text-xs lg:text-sm xl:text-base">&quot;Here for all your Project Management needs&quot;</p>
           </div>
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
             <h1 className="text-4xl font-semibold tracking-tight text-center">
