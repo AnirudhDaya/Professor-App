@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster"
 import { Suspense } from "react";
-import { MainNav } from "@/components/main-nav";
-import { UserNav } from "@/components/user-nav";
+import { OgNav } from "@/components/ognav";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -37,19 +35,12 @@ export default function RootLayout({
         
       </div>
       <div className="hidden flex-col md:flex">
-        <div className="border-b">
-          <div className="flex h-16 items-center px-4">
-            {/* <TeamSwitcher /> */}
-            <MainNav className="mx-6" />
-            <div className="ml-auto flex items-center space-x-4">
-              {/* <Search /> */}
-              <UserNav />
-            </div>
-          </div>
-        </div>
+        <OgNav/>
+
             <Suspense>
             {children}
             </Suspense>
+        {/* </OgNav> */}
         </div>
         </>
           </ThemeProvider>

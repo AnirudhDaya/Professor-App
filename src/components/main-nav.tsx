@@ -18,10 +18,10 @@ export function MainNav({
         Dashboard
       </Link>
       <Link
-        href="/settings"
+        href="/profile"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Settings
+        Profile
       </Link>
     </nav>
   )

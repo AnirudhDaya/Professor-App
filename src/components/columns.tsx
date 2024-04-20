@@ -68,7 +68,7 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="max-w-[25rem] lg:max-w-[100%]  truncate font-medium">
+          <span className="font-medium whitespace-normal ">
             <Drawer>
               <DrawerTrigger className="underline">
                 {row.getValue("title")}
@@ -126,7 +126,7 @@ export const columns: ColumnDef<Task>[] = [
       return (
         <div className="flex space-x-2">
           {/* {label && <Badge variant="outline">{label.label}</Badge>} */}
-          <span className="max-w-[15rem] lg:max-w-[100%] truncate font-medium">
+          <span className=" whitespace-normal font-medium">
             {(row.getValue("teamMembers") as string[]).join(", ")}
           </span>
         </div>

@@ -20,6 +20,20 @@ const config = {
     },
     extend: {
       colors: {
+        "proma": {
+          // 50: "#FAF5FE",
+          // 100: "#f4ebfc",
+          // 200: "#ead6f8",
+          300: "#CA009E",
+          // 400: "#c88ae8",
+          // 500: "#ae5cd9",
+          // 600: "#933cbd",
+          // 700: "#4F076D", // primary
+          DEFAULT: "#5C00D1", // primary set as default
+          // 800: "#662880",
+          // 900: "#582669",
+          950: "#030712",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -82,7 +96,13 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "meteor-effect": "meteor 5s linear infinite",
       },
-      
+      backgroundImage: {
+        "mask1": "url('/Looper-4.png')",
+        "mask2": "url('/Looper-5.png')",
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },

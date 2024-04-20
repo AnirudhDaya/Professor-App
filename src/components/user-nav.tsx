@@ -17,6 +17,7 @@ import {
   } from "@/components/ui/dropdown-menu"
 import { toast } from "./ui/use-toast"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
   
   export function UserNav() {
     const router = useRouter();
@@ -73,9 +74,11 @@ import { useRouter } from "next/navigation"
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
+            <Link href="/profile">
             <DropdownMenuItem>
-              Settings
+              Profile
             </DropdownMenuItem>
+            </Link>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={handleLogout} className="text-red-600">
