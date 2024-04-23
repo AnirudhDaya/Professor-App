@@ -95,8 +95,8 @@ export default async function Submissions({
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const class_name = searchParams?.class
-  const tasks = await getTasks()
-  // const tasks = await getTasks2(class_name as string)
+  // const tasks = await getTasks()
+  const tasks = await getTasks2(class_name as string)
   const breadcrumbItems = [
     { label: "Dashboard", href: "/" },
     { label: `${class_name}`, href: `/class?name=${class_name}` },

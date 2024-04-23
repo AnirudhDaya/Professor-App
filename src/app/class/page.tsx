@@ -48,8 +48,10 @@ interface Class {
 
 
 export default function Class() {
+  const [role, setRole] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
+  
   // const [role, setRole] = useState<string | null>(null);
   const handleClick = (type: string) => {
         router.push(`/class/${type}?class=${searchParams.get('name')}`)
@@ -58,7 +60,12 @@ export default function Class() {
     { label: "Dashboard", href: "/" },
     { label: `${searchParams.get('name')}`},
   ];
-  const role = localStorage.getItem('role');
+ 
+  useEffect(() => {
+    // Perform localStorage action
+    if (typeof window !== 'undefined')
+      setRole(localStorage.getItem('role') || "");
+  }, [])
   // setRole(storedRole);
   return (
     <>

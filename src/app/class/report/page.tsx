@@ -42,12 +42,12 @@ async function getTasks2(class_name:string) {
     );
 
     const data = await response.json();
-    console.log("BAKA MONO", data);
+    console.log("BAKA MONE", data);
 
     // Extract the required data from the API response
     const tasks = data.map((project: any) => ({
       id: project.project.id.toString(), // Convert id to string
-      title: project.project.title,
+      title: project.project.title, 
       status: project.project.status,
       label: project.project.team, // Assuming 'team' is the label
       priority: 'high', // No priority information in the API response

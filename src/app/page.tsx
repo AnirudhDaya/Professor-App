@@ -52,7 +52,7 @@ export default function DashboardPage() {
     name: "",
     picture: null,
   });
-
+  const [role, setRole] = useState<String>("")
   
   useEffect( () => {
     const fetchClasses = async () => {
@@ -92,10 +92,11 @@ export default function DashboardPage() {
         });
       }
     }
+    if (typeof window !== 'undefined')
+      setRole(localStorage.getItem('role') || "");
     fetchClasses();
   },[]);
   
-  const role = localStorage.getItem('role');
   
   const handleFileChange = (e: any) => {
     setFormData({ ...formData, picture: e.target.files[0] });

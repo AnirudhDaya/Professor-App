@@ -26,11 +26,14 @@ import {
 import { toast } from "./ui/use-toast"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
 export function UserNav() {
   const router = useRouter();
-  const role = localStorage.getItem('role')
+  const [role,setRole] = useState<string | null>("")
+
   function handleRole(value: string) {
+    
     localStorage.setItem('role', value);
     toast({
       title: 'Successfully Switched Role',
@@ -41,7 +44,10 @@ export function UserNav() {
     window.location.reload();
     // You can optionally perform additional actions here, such as updating the UI or making an API call with the selected role
   }
-
+  useEffect(() => {
+    // Perform localStorage action
+    setRole(localStorage.getItem('role'))
+  }, [])
   const handleLogout = async () => {
     const res = await fetch("/api/login", {
       method: "GET",

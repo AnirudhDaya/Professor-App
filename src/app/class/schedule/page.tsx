@@ -66,6 +66,7 @@ export default function Schedule({
 }) {
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
   const [classes, setClasses] = useState<Class[]>([]);
+  const [role, setRole] = useState<string | null>(null);
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -115,6 +116,8 @@ export default function Schedule({
         });
       }
     }
+    if (typeof window !== 'undefined')
+      setRole(localStorage.getItem('role') || "");
     fetchSchedule();
   },[]);
 
@@ -201,7 +204,7 @@ export default function Schedule({
       }
     });
   };
-  const role = localStorage.getItem('role');
+
   return (
     <>
      
