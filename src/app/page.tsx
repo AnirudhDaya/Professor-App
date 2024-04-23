@@ -64,7 +64,7 @@ export default function DashboardPage() {
         if (res.status === 200) {
           const val  = await res.json();
             const getClasses = await fetch(
-              "https://pmt-inajc.ondigitalocean.app/get_classes/",
+              "https://proma-ai-uw7kj.ondigitalocean.app/get_classes/",
               {
                 method: "POST",
                 headers: {
@@ -128,7 +128,7 @@ export default function DashboardPage() {
         const val = await res.json();
         console.log("PUTA MADRE", formDataToSubmit.get("picture"));
         const response = await fetch(
-          "https://pmt-inajc.ondigitalocean.app/create_class/",
+          "https://proma-ai-uw7kj.ondigitalocean.app/create_class/",
           {
             method: "POST",
             headers: {

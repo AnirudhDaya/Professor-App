@@ -87,7 +87,7 @@ export default function Schedule({
         if (res.status === 200) {
           const val  = await res.json();
             const getClasses = await fetch(
-              "https://pmt-inajc.ondigitalocean.app//",
+              "https://proma-ai-uw7kj.ondigitalocean.app//",
               {
                 method: "POST",
                 headers: {
@@ -147,7 +147,7 @@ export default function Schedule({
         const val = await res.json();
         console.log("PUTA MADRE", formDataToSubmit.get("picture"));
         const response = await fetch(
-          "https://pmt-inajc.ondigitalocean.app//",
+          "https://proma-ai-uw7kj.ondigitalocean.app//",
           {
             method: "POST",
             headers: {
@@ -263,8 +263,66 @@ export default function Schedule({
                 <DialogHeader>
                   <DialogTitle>Create a New Schedule</DialogTitle>
                   <DialogDescription>
-                    {`Upload the CSV in the format given below. Click submit when
-                    you&aposre done.`}
+                    {`Pick a date to begin the presentation`}
+                  </DialogDescription>
+                </DialogHeader>
+                
+    <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="picture" className="text-right">
+                      Date
+                    </Label>
+                    
+                      <DatePickerWithRange/>
+                  </div>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={handleSubmit}
+                    >
+                      Schedule
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Card className="col-span-1 bg-orange-600 text-white cursor-pointer">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Update Professor&apos;s schedule
+                    </CardTitle>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <line x1="12" y1="5" x2="12" y2="19" />
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                    </svg>
+                  </CardHeader>
+                  <CardContent className="p-4">
+                    <div className="text-2xl font-bold">Update Professor&apos;s schedule</div>
+                    <p className="text-xs">
+                      Click to create a new or update existing schedule.
+                    </p>
+                  </CardContent>
+                </Card>
+              </DialogTrigger>
+
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Update professor&apos;s schedule for {class_name}</DialogTitle>
+                  <DialogDescription>
+                    {`Check the boxes in which the professor is free.`}
                   </DialogDescription>
                 </DialogHeader>
                 <table>
@@ -510,13 +568,7 @@ export default function Schedule({
         {/* Add similar rows for Tuesday, Wednesday, Thursday, and Friday */}
       </tbody>
     </table>
-    <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="picture" className="text-right">
-                      Date
-                    </Label>
-                    
-                      <DatePickerWithRange/>
-                  </div>
+
                 <DialogFooter>
                   <DialogClose asChild>
                     <Button
@@ -524,12 +576,13 @@ export default function Schedule({
                       variant="secondary"
                       onClick={handleSubmit}
                     >
-                      Schedule
+                      Update Schedule
                     </Button>
                   </DialogClose>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
+          
           </div>
           
         </div>

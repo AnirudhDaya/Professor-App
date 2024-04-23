@@ -75,36 +75,13 @@ export const columns: ColumnDef<Task>[] = [
               </DrawerTrigger>
               <DrawerContent>
                 <DrawerHeader>
-                  <DrawerTitle>Documents Uploaded</DrawerTitle>
+                  <DrawerTitle>Reports Generated</DrawerTitle>
                   <DrawerDescription>
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead className="w-[100px] ">Document</TableHead>
-                          <TableHead>Status</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell className="font-medium">Abstract</TableCell>
-                          <TableCell className="italic">
-                            <a href={row.original.abstract} target="_blank">Open Abstract</a>
-                            </TableCell>
-                        </TableRow>
-                         {/* Check if researchPapers is defined and is an array */}
-  {Array.isArray(row.original.researchPapers) && (
-    // Mapping through research papers and creating a new TableRow for each paper
-    (row.original.researchPapers as string[]).map((paper: string, index: number) => (
-      <TableRow key={index}>
-        <TableCell className="font-medium">Paper {index + 1}:</TableCell>
-        <TableCell className="italic">
-        <a href={paper} target="_blank">Open Paper {index +1}</a>
-        </TableCell>
-      </TableRow>
-    ))
-  )}
-                      </TableBody>
-                    </Table>
+                    {row.original.reports?.map((report, index) => (
+                      <Button key={index} variant="outline" className="mb-2">
+                        <a href={report} target="_blank">Open Report</a>
+                      </Button>
+                    ))}
                   </DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter>

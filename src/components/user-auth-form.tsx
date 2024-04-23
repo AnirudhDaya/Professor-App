@@ -34,7 +34,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
     try {
       const response = await fetch(
-        "https://pmt-inajc.ondigitalocean.app/login/",
+        "https://proma-ai-uw7kj.ondigitalocean.app/login/",
         {
           method: "POST",
           headers: {

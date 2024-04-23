@@ -29,7 +29,7 @@ import Link from "next/link"
         const val = await res.json();
         // console.log(val.token.value);
         const signout = await fetch(
-          "https://pmt-inajc.ondigitalocean.app/logout/",
+          "https://proma-ai-uw7kj.ondigitalocean.app/logout/",
           {
             method: "POST",
             headers: {

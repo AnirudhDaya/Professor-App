@@ -11,6 +11,7 @@ export const taskSchema = z.object({
   teamMembers: z.array(z.string()), // Add this line
   abstract: z.string().optional(), // Add this line
   researchPapers: z.array(z.string()).optional(), // Add this line
+  reports: z.array(z.string()).optional(), // Add this line
 })
 
 export type Task = z.infer<typeof taskSchema>

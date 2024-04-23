@@ -99,7 +99,7 @@ export default function Class() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="cursor-pointer" onClick={()=>handleClick("reports")}>
+            <Card className="cursor-pointer" onClick={()=>handleClick("report")}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 
               </CardHeader>

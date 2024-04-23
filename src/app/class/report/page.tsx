@@ -3,7 +3,7 @@ import { promises as fs } from "fs"
 import path from "path"
 import { z } from "zod"
 
-import { columns } from "@/components/columns"
+import { columns } from "@/components/columns2"
 import { DataTable } from "@/components/data-table"
 import { taskSchema } from "@/data/schema"
 import { BreadcrumbWithCustomSeparator } from "@/components/breadcrumb-nav";
@@ -29,30 +29,6 @@ interface Class {
 }
 
 async function getTasks2(class_name:string) {
-//what is needed
-// id: string;
-//     title: string;
-//     status: string;
-//     label: string;
-//     priority: string;
-//     teamMembers: string[];
-//     abstract?: string | undefined;
-//     researchPapers?: string[] | undefined;
-//     reports?: string[] | undefined;
-// what is given by the API
-  // {
-  //   project: {
-  //     id: 1,
-  //     title: 'Ai Project Management Tool',
-  //     abstract: 'https://blr1.digitaloceanspaces.com/pmt-bucket/pmt/abstracts/ChatGPT_Prompt_Patterns_for_Improving_Code_Quality_Refactoring_Requirements_Elicitation_and_Software_Design.pdf?AWSAccessKeyId=DO004T9FL282WA3V6GAJ&Signature=zma5G347sIaQWZLfMlWZG7QXzqU%3D&Expires=1713859752',
-  //     status: 'InProgress',
-  //     team: '2B10B2',
-  //     coordinator: 1,
-  //     guide: 1,
-  //     batch: 2
-  //   },
-  //   research_papers: []
-  // },
   const formdata = new FormData();
   formdata.append("batch", class_name);
 
@@ -76,9 +52,9 @@ async function getTasks2(class_name:string) {
       label: project.project.team, // Assuming 'team' is the label
       priority: 'high', // No priority information in the API response
       teamMembers: project.members, // No team members information in the API response
-      abstract: project.project.abstract,
-      researchPapers: project.research_papers,
-      reports: [], // No reports information in the API response
+      // abstract: project.project.abstract,
+      // researchPapers: project.research_papers,
+      reports: project.reports, // No reports information in the API response
     }));
 
     return tasks;
@@ -100,7 +76,7 @@ export default async function Submissions({
   const breadcrumbItems = [
     { label: "Dashboard", href: "/" },
     { label: `${class_name}`, href: `/class?name=${class_name}` },
-    { label: "Submissions" },
+    { label: "Reports" },
   ];
   return (
     <> 
@@ -114,7 +90,7 @@ export default async function Submissions({
             </p>
           </div>
         </div>
-         <DataTable data={tasks} columns={columns} />   
+        <DataTable data={tasks} columns={columns} />
       </div>
      
     </>
