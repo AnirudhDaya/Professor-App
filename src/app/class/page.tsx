@@ -50,6 +50,7 @@ interface Class {
 export default function Class() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  // const [role, setRole] = useState<string | null>(null);
   const handleClick = (type: string) => {
         router.push(`/class/${type}?class=${searchParams.get('name')}`)
   }
@@ -57,6 +58,8 @@ export default function Class() {
     { label: "Dashboard", href: "/" },
     { label: `${searchParams.get('name')}`},
   ];
+  const role = localStorage.getItem('role');
+  // setRole(storedRole);
   return (
     <>
         <div className="flex-1 space-y-4 p-8 pt-6">
@@ -110,10 +113,12 @@ export default function Class() {
                 </p>
               </CardContent>
             </Card>
+            {role !== 'guide' && (
             <Card className="cursor-pointer" onClick={()=>handleClick("manage")}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 
               </CardHeader>
+              
               <CardContent>
                 <div className="text-2xl font-bold">Manage</div>
                 <p className="text-xs text-muted-foreground">
@@ -121,6 +126,7 @@ export default function Class() {
                 </p>
               </CardContent>
             </Card>
+            )}
           </div>
         </div>
      

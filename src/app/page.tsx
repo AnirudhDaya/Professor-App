@@ -94,7 +94,9 @@ export default function DashboardPage() {
     }
     fetchClasses();
   },[]);
-
+  
+  const role = localStorage.getItem('role');
+  
   const handleFileChange = (e: any) => {
     setFormData({ ...formData, picture: e.target.files[0] });
   };
@@ -188,14 +190,12 @@ export default function DashboardPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{cls.name }</div>
-                    <p className="text-xs text-muted-foreground">
-                    {`${cls.strength} students`}
-                    </p>
+                    
                   </CardContent>
                 </Card>
              
             ))}
-
+            {role !== 'guide' && (
             <Dialog>
               <DialogTrigger asChild>
                 <Card className="col-span-1 bg-blue-500 text-white cursor-pointer">
@@ -280,6 +280,7 @@ export default function DashboardPage() {
                 </DialogFooter>
               </DialogContent>
             </Dialog>
+            )}
           </div>
           
         </div>

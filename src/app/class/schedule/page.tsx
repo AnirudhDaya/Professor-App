@@ -201,7 +201,7 @@ export default function Schedule({
       }
     });
   };
-
+  const role = localStorage.getItem('role');
   return (
     <>
      
@@ -227,7 +227,7 @@ export default function Schedule({
                 </Card>
              
             ))}
-
+            {role !== 'guide' && (
             <Dialog>
               <DialogTrigger asChild>
                 <Card className="col-span-1 bg-blue-500 text-white cursor-pointer">
@@ -287,14 +287,15 @@ export default function Schedule({
                 </DialogFooter>
               </DialogContent>
             </Dialog>
+            )}
             <Dialog>
               <DialogTrigger asChild>
                 <Card className="col-span-1 bg-orange-600 text-white cursor-pointer">
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
+                    {/* <CardTitle className="text-sm font-medium">
                       Update Professor&apos;s schedule
-                    </CardTitle>
-                    <svg
+                    </CardTitle> */}
+                    {/* <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
                       height="24"
@@ -307,7 +308,7 @@ export default function Schedule({
                     >
                       <line x1="12" y1="5" x2="12" y2="19" />
                       <line x1="5" y1="12" x2="19" y2="12" />
-                    </svg>
+                    </svg> */}
                   </CardHeader>
                   <CardContent className="p-4">
                     <div className="text-2xl font-bold">Update Professor&apos;s schedule</div>

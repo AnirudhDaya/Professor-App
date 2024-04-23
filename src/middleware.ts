@@ -19,6 +19,8 @@ export async function middleware(request: NextRequest) {
     if (res.ok) {
       const data = await res.json();
       // If a user session exists, redirect to the main page
+      const role = data.role;
+      localStorage.setItem("role",role)
       toast({
         title: 'Already Logged In',
         description: `Redirecting you back`,
