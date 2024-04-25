@@ -1,32 +1,22 @@
-import Image from "next/image";
-import { promises as fs } from "fs"
-import path from "path"
-import { z } from "zod"
-
-import { columns } from "@/components/columns2"
+// import { promises as fs } from "fs"
+import { usePathname } from 'next/navigation';
+import { columns } from "@/components/schedule-columns"
 import { DataTable } from "@/components/data-table"
 import { taskSchema } from "@/data/schema"
 import { BreadcrumbWithCustomSeparator } from "@/components/breadcrumb-nav";
-import { useSearchParams } from "next/navigation";
-import { NextRequest } from "next/server";
 
 
 
-interface Class {
-  strength: number;
-  name: string; 
- }
-
- async function getTasks() {
-  const data = await fs.readFile(
-    path.join(process.cwd(), "src/data/tasks.json")
-  )
-  // W:\Projects\professor_app\src\data\tasks.json
+//  async function getTasks() {
+//   const data = await fs.readFile(
+//     path.join(process.cwd(), "src/data/tasks.json")
+//   )
+//   // W:\Projects\professor_app\src\data\tasks.json
   
-  const tasks = JSON.parse(data.toString())
+//   const tasks = JSON.parse(data.toString())
 
-  return z.array(taskSchema).parse(tasks)
-}
+//   return z.array(taskSchema).parse(tasks)
+// }
 
 async function getTasks2(class_name:string) {
   const formdata = new FormData();
@@ -42,9 +32,9 @@ async function getTasks2(class_name:string) {
     );
 
     const data = await response.json();
-    console.log("BAKA MONE", data);
+    // console.log("BAKA MONE", data);
 
-    // Extract the required data from the API response
+    // // Extract the required data from the API response
     const tasks = data.map((project: any) => ({
       id: project.project.id.toString(), // Convert id to string
       title: project.project.title, 
@@ -63,20 +53,26 @@ async function getTasks2(class_name:string) {
     throw error;
   }
 }
-export default async function Reports({
+export default async function Schedule({
   params,
   searchParams,
 }: {
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
+  console.log("baka baka");
   const class_name = searchParams?.class
-  // const tasks = await getTasks()
+//   const currentPage = usePathname();
+//   const pathSegments = currentPage.split('/');
+//   const pptName = pathSegments[pathSegments.length - 1];
+
+//   const tasks = await getTasks()
   const tasks = await getTasks2(class_name as string)
   const breadcrumbItems = [
     { label: "Dashboard", href: "/" },
-    { label: `${class_name}`, href: `/class?name=${class_name}` },
-    { label: "Reports" },
+    { label: `${class_name}`, href: `/class?class=${class_name}` },
+    { label: "Schedule",  href: `/class/schedule?class=${class_name}` },
+    { label: params.slug },
   ];
   return (
     <> 
@@ -84,9 +80,9 @@ export default async function Reports({
         <BreadcrumbWithCustomSeparator breadcrumbItems={breadcrumbItems}/>
         <div className="flex items-center justify-between space-y-2">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight">Reports</h2>
+            <h2 className="text-2xl font-bold tracking-tight">Schedule of {params.slug} of {class_name}</h2>
             <p className="text-muted-foreground">
-              Here&apos;s a view of all the reports generated!
+              Here&apos;s a view of all the submissions made by the students!
             </p>
           </div>
         </div>
@@ -98,10 +94,5 @@ export default async function Reports({
 }
 
 
-
-
-
-
-// Simulate a database read for tasks.
 
 

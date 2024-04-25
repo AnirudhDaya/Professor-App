@@ -1,7 +1,5 @@
 "use client";
 // import { Metadata } from "next";
-import Image from "next/image";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,20 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { MainNav } from "@/components/main-nav";
-import { Overview } from "@/components/overview";
-import { RecentSales } from "@/components/recent-sales";
-import { UserNav } from "@/components/user-nav";
+
 import {
   Dialog,
   DialogClose,
@@ -40,13 +25,21 @@ import { Label } from "@/components/ui/label";
 import { TableDemo } from "@/components/formatTable";
 import { useEffect, useState } from "react";
 import { toast } from "@/components/ui/use-toast";
-import Link from "next/link";
-import { NextRequest } from "next/server";
+
 import { useRouter } from "next/navigation";
 import { BreadcrumbWithCustomSeparator } from "@/components/breadcrumb-nav";
-import { Checkbox } from "@radix-ui/react-checkbox";
-import { DatePickerWithRange } from "@/components/range-calendar";
+import { DatePickerDemo } from "@/components/datepicker";
+import * as React from "react"
+import { format } from "date-fns"
+import { Calendar as CalendarIcon } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 // export const metadata: Metadata = {
 //   title: "Dashboard",
 //   description: "Example dashboard app built using the components.",
@@ -64,14 +57,12 @@ export default function Schedule({
   params: { slug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
+  const [dateselected, setDate] = React.useState<Date>()
   const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
   const [classes, setClasses] = useState<Class[]>([]);
   const [role, setRole] = useState<string | null>(null);
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    name: "",
-    picture: null,
-  });
+
   const class_name = searchParams?.class
   const breadcrumbItems = [
     { label: "Dashboard", href: "/" },
@@ -126,19 +117,16 @@ export default function Schedule({
     dialogClose();
     // Validate form data here
     // For example, check if name is not empty and picture is selected
-    if (!formData.name || !formData.picture) {
+    
+    if (!dateselected) {
       toast({
         title: "Look Out!",
-        description: "Please fill in all fields",
+        description: "Please pick a date",
         variant: "destructive",
       });
       return;
     }
-
-    // Create FormData object
-    const formDataToSubmit = new FormData();
-    formDataToSubmit.append("class", formData.name);
-    formDataToSubmit.append("csv_file", formData.picture);
+    
 
     // Submit to API
     try {
@@ -148,7 +136,6 @@ export default function Schedule({
 
       if (res.status === 200) {
         const val = await res.json();
-        console.log("PUTA MADRE", formDataToSubmit.get("picture"));
         const response = await fetch(
           "https://proma-ai-uw7kj.ondigitalocean.app//",
           {
@@ -156,24 +143,19 @@ export default function Schedule({
             headers: {
               Authorization: `Token ${val.token.value}`,
             },
-            body: formDataToSubmit,
+            body: dateselected.toJSON(),
           }
         );
         if (response.status === 200) {
           const data = await response.json();
           // If a user session exists, redirect to the main page
           toast({
-            title: "Class Created",
-            description: "Class created successfully",
+            title: "Successfully submitted",
+            description: "Scheduling a presentation now..",
           });
           
           // Optionally, update the class list on the dashboard
-        } else {
-          toast({
-            title: "Message",
-            description: "No classes found!",
-          });
-        }
+        } 
       } else {
         toast({
           title: "Error",
@@ -190,8 +172,8 @@ export default function Schedule({
     }
   }
 
-  const handleRoute = (className: string) => {
-        router.push(`/class?name=${className}`, { scroll: false });
+  const handleRoute = (pptName: string) => {
+        router.push(`/class/schedule/${pptName}?class=${class_name}`, { scroll: false });
   }
 
   const handleCheckboxChange = (day:any, column:any) => {
@@ -223,13 +205,18 @@ export default function Schedule({
                   </CardHeader>
                   <CardContent>
                     <div className="text-2xl font-bold">{cls.name }</div>
-                    <p className="text-xs text-muted-foreground">
-                    {`${cls.strength} students`}
-                    </p>
                   </CardContent>
                 </Card>
              
             ))}
+            <Card className="cursor-pointer"  onClick={()=>handleRoute("interm-1")}>
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                   
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold">Interim 1</div>
+                  </CardContent>
+                </Card>
             {role !== 'guide' && (
             <Dialog>
               <DialogTrigger asChild>
@@ -275,7 +262,28 @@ export default function Schedule({
                       Date
                     </Label>
                     
-                      <DatePickerWithRange/>
+                    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant={"outline"}
+          className={cn(
+            "w-[280px] justify-start text-left font-normal",
+            !dateselected && "text-muted-foreground"
+          )}
+        >
+          <CalendarIcon className="mr-2 h-4 w-4" />
+          {dateselected ? format(dateselected, "PPP") : <span>Pick a date</span>}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0">
+        <Calendar
+          mode="single"
+          selected={dateselected}
+          onSelect={setDate}
+          initialFocus
+        />
+      </PopoverContent>
+    </Popover>
                   </div>
                 <DialogFooter>
                   <DialogClose asChild>

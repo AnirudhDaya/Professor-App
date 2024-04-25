@@ -8,7 +8,11 @@ import { statuses } from "../data/data";
 import { Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
-
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 import {
   Drawer,
   DrawerClose,
@@ -30,23 +34,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import Link from "next/link";
-import { usePathname,useSearchParams } from 'next/navigation';
-
-
-const TaskLink = ({ rowData }:{rowData: any}) => {
-  
-  const searchParams = useSearchParams();
-  const className = searchParams.get('class') || '';
-  const id = rowData.id;
-
-  return (
-    <Link href={`/class/submissions/diary?id=${id}&class=${className}`}>
-      <Button>Open Diary</Button>
-    </Link>
-  );
-};
-
 export const columns: ColumnDef<Task>[] = [
   {
     id: "select",
@@ -79,7 +66,6 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Project Name" />
     ),
     cell: ({ row }) => {
-      
       return (
         <div className="flex space-x-2">
           <span className="font-medium whitespace-normal ">
@@ -91,12 +77,11 @@ export const columns: ColumnDef<Task>[] = [
                 <DrawerHeader>
                   <DrawerTitle>Documents Uploaded</DrawerTitle>
                   <DrawerDescription>
-                  <div className="">
-                    <Table className="w-full">
+                    <Table>
                       <TableHeader>
                         <TableRow>
                           <TableHead className="w-[100px] ">Document</TableHead>
-                          <TableHead>File</TableHead>
+                          <TableHead>Status</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -120,8 +105,6 @@ export const columns: ColumnDef<Task>[] = [
   )}
                       </TableBody>
                     </Table>
-                    </div>
-                    <TaskLink rowData={row.original} />
                   </DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter>
@@ -187,23 +170,6 @@ export const columns: ColumnDef<Task>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
-  },
-  {
-    accessorKey: "guide",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Guide" />
-    ),
-    cell: ({ row }) => {
-     
-
-      return (
-        <div className="flex w-[100px] items-center">
-          
-          <span>{row.getValue("guide")}</span>
-        </div>
-      );
-    },
-   
   },
   {
     id: "actions",

@@ -3,9 +3,9 @@ import { promises as fs } from "fs"
 import path from "path"
 import { z } from "zod"
 
-import { columns } from "@/components/columns2"
+import { columns } from "@/components/diary-columns"
 import { DataTable } from "@/components/data-table"
-import { taskSchema } from "@/data/schema"
+import { diarySchema } from "@/data/diary-schema"
 import { BreadcrumbWithCustomSeparator } from "@/components/breadcrumb-nav";
 import { useSearchParams } from "next/navigation";
 import { NextRequest } from "next/server";
@@ -25,10 +25,34 @@ interface Class {
   
   const tasks = JSON.parse(data.toString())
 
-  return z.array(taskSchema).parse(tasks)
+  return z.array(diarySchema).parse(tasks)
 }
 
 async function getTasks2(class_name:string) {
+//what is needed
+// id: string;
+//     title: string;
+//     status: string;
+//     label: string;
+//     priority: string;
+//     teamMembers: string[];
+//     abstract?: string | undefined;
+//     researchPapers?: string[] | undefined;
+//     reports?: string[] | undefined;
+// what is given by the API
+  // {
+  //   project: {
+  //     id: 1,
+  //     title: 'Ai Project Management Tool',
+  //     abstract: 'https://blr1.digitaloceanspaces.com/pmt-bucket/pmt/abstracts/ChatGPT_Prompt_Patterns_for_Improving_Code_Quality_Refactoring_Requirements_Elicitation_and_Software_Design.pdf?AWSAccessKeyId=DO004T9FL282WA3V6GAJ&Signature=zma5G347sIaQWZLfMlWZG7QXzqU%3D&Expires=1713859752',
+  //     status: 'InProgress',
+  //     team: '2B10B2',
+  //     coordinator: 1,
+  //     guide: 1,
+  //     batch: 2
+  //   },
+  //   research_papers: []
+  // },
   const formdata = new FormData();
   formdata.append("batch", class_name);
 
@@ -42,19 +66,17 @@ async function getTasks2(class_name:string) {
     );
 
     const data = await response.json();
-    console.log("BAKA MONE", data);
+    console.log("BAKA MONO", data);
 
     // Extract the required data from the API response
     const tasks = data.map((project: any) => ({
       id: project.project.id.toString(), // Convert id to string
-      title: project.project.title, 
+      date: "today",
       status: project.project.status,
-      label: project.project.team, // Assuming 'team' is the label
       priority: 'high', // No priority information in the API response
-      teamMembers: project.members, // No team members information in the API response
-      // abstract: project.project.abstract,
-      // researchPapers: project.research_papers,
-      reports: project.reports, // No reports information in the API response
+      diary: "https://variety.com/wp-content/uploads/2021/07/Rick-Astley-Never-Gonna-Give-You-Up.png?w=1024",
+      remarks: "shit",
+      label: project.project.team
     }));
 
     return tasks;
@@ -63,7 +85,7 @@ async function getTasks2(class_name:string) {
     throw error;
   }
 }
-export default async function Reports({
+export default async function Submissions({
   params,
   searchParams,
 }: {
@@ -71,12 +93,13 @@ export default async function Reports({
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const class_name = searchParams?.class
-  // const tasks = await getTasks()
+//   const tasks = await getTasks()
   const tasks = await getTasks2(class_name as string)
   const breadcrumbItems = [
     { label: "Dashboard", href: "/" },
-    { label: `${class_name}`, href: `/class?name=${class_name}` },
-    { label: "Reports" },
+    { label: `${class_name}`, href: `/class?class=${class_name}` },
+    { label: "Submissions", href:`/class/submissions?class=${class_name}` },
+    {label: "Diary"}
   ];
   return (
     <> 
@@ -84,13 +107,13 @@ export default async function Reports({
         <BreadcrumbWithCustomSeparator breadcrumbItems={breadcrumbItems}/>
         <div className="flex items-center justify-between space-y-2">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight">Reports</h2>
+            <h2 className="text-2xl font-bold tracking-tight">Diary</h2>
             <p className="text-muted-foreground">
-              Here&apos;s a view of all the reports generated!
+              Here&apos;s a view of the weekly diary submitted by !
             </p>
           </div>
         </div>
-        <DataTable data={tasks} columns={columns} />
+         <DataTable data={tasks} columns={columns} />   
       </div>
      
     </>

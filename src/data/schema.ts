@@ -8,10 +8,12 @@ export const taskSchema = z.object({
   status: z.string(),
   label: z.string(),
   priority: z.string(),
+  guide: z.string(),
   teamMembers: z.array(z.string()), // Add this line
   abstract: z.string().optional(), // Add this line
   researchPapers: z.array(z.string()).optional(), // Add this line
   reports: z.array(z.string()).optional(), // Add this line
+  // Add this line
 })
 
 export type Task = z.infer<typeof taskSchema>
