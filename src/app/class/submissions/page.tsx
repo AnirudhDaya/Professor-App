@@ -29,30 +29,7 @@ interface Class {
 }
 
 async function getTasks2(class_name:string) {
-//what is needed
-// id: string;
-//     title: string;
-//     status: string;
-//     label: string;
-//     priority: string;
-//     teamMembers: string[];
-//     abstract?: string | undefined;
-//     researchPapers?: string[] | undefined;
-//     reports?: string[] | undefined;
-// what is given by the API
-  // {
-  //   project: {
-  //     id: 1,
-  //     title: 'Ai Project Management Tool',
-  //     abstract: 'https://blr1.digitaloceanspaces.com/pmt-bucket/pmt/abstracts/ChatGPT_Prompt_Patterns_for_Improving_Code_Quality_Refactoring_Requirements_Elicitation_and_Software_Design.pdf?AWSAccessKeyId=DO004T9FL282WA3V6GAJ&Signature=zma5G347sIaQWZLfMlWZG7QXzqU%3D&Expires=1713859752',
-  //     status: 'InProgress',
-  //     team: '2B10B2',
-  //     coordinator: 1,
-  //     guide: 1,
-  //     batch: 2
-  //   },
-  //   research_papers: []
-  // },
+
   const formdata = new FormData();
   formdata.append("batch", class_name);
 
@@ -107,6 +84,13 @@ export default async function Submissions({
     <> 
         <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
         <BreadcrumbWithCustomSeparator breadcrumbItems={breadcrumbItems}/>
+        {tasks.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full">
+            <h2 className="text-2xl font-bold tracking-tight mb-4">No Submissions Yet</h2>
+            <p className="text-muted-foreground mb-6">There are no form submissions for this batch so far.</p>
+          </div>
+        ) : (
+          <>
         <div className="flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Submissions</h2>
@@ -115,7 +99,10 @@ export default async function Submissions({
             </p>
           </div>
         </div>
-         <DataTable data={tasks} columns={columns} />   
+
+         <DataTable data={tasks} columns={columns} />  
+         </> 
+         )}
       </div>
      
     </>

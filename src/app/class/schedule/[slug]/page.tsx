@@ -118,6 +118,13 @@ export default async function Schedule({
     <> 
         <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
         <BreadcrumbWithCustomSeparator breadcrumbItems={breadcrumbItems}/>
+        {fetchedTasks.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full">
+            <h2 className="text-2xl font-bold tracking-tight mb-4">No Schedules Yet</h2>
+            <p className="text-muted-foreground mb-6">There are no schedules for this batch so far.</p>
+          </div>
+        ) : (
+        <>
         <div className="flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">  Schedule of {decodeURIComponent(params.slug)} presentation of {class_name}</h2>
@@ -127,6 +134,8 @@ export default async function Schedule({
           </div>
         </div>
         <DataTable data={fetchedTasks} columns={columns} />
+        </>
+        )}
       </div>
      
     </>
