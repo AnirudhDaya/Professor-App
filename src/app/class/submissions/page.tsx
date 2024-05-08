@@ -79,7 +79,7 @@ async function getTasks2(class_name:string) {
       abstract: project.project.abstract,
       researchPapers: project.research_papers,
       reports: [], // No reports information in the API response
-      guide: "Not Assigned"
+      guide:  project.project.guide
     }));
 
     return tasks;

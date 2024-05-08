@@ -11,43 +11,36 @@ import {
   
   export const labels = [
     {
-      value: "bug",
-      label: "Bug",
+      value: "approve",
+      label: "Approve",
     },
     {
-      value: "feature",
-      label: "Feature",
+      value: "reject",
+      label: "Reject",
     },
-    {
-      value: "documentation",
-      label: "Documentation",
-    },
+  
   ]
   
   export const statuses = [
     {
-      value: "backlog",
-      label: "Backlog",
+      value: "under review",
+      label: "Under Review",
       icon: QuestionMarkCircledIcon,
     },
-    {
-      value: "todo",
-      label: "Todo",
-      icon: CircleIcon,
-    },
+    
     {
       value: "in progress",
       label: "In Progress",
       icon: StopwatchIcon,
     },
     {
-      value: "done",
-      label: "Done",
+      value: "approve",
+      label: "Approved",
       icon: CheckCircledIcon,
     },
     {
-      value: "canceled",
-      label: "Canceled",
+      value: "reject",
+      label: "Rejected",
       icon: CrossCircledIcon,
     },
   ]

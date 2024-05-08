@@ -18,26 +18,34 @@ export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
+  const urlContainsDiary = window.location.href.includes("diary")
 
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
-        <Input
-          placeholder="Search Projects"
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
-          className="h-8 w-[150px] lg:w-[250px]"
-        />
-        <Input
-          placeholder="Search Students"
-          value={(table.getColumn("teamMembers")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("teamMembers")?.setFilterValue(event.target.value)
-          }
-          className="h-8 w-[150px] lg:w-[250px]"
-        />
+        
+        {/* Check if the URL contains "diary" before rendering the inputs */}
+        {!urlContainsDiary && (
+          <>
+            <Input
+              placeholder="Search Projects"
+              value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+              onChange={(event) =>
+                table.getColumn("title")?.setFilterValue(event.target.value)
+              }
+              className="h-8 w-[150px] lg:w-[250px]"
+            />
+            <Input
+              placeholder="Search Students"
+              value={(table.getColumn("teamMembers")?.getFilterValue() as string) ?? ""}
+              onChange={(event) =>
+                table.getColumn("teamMembers")?.setFilterValue(event.target.value)
+              }
+              className="h-8 w-[150px] lg:w-[250px]"
+            />
+          </>
+        )}
+
         {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}

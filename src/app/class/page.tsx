@@ -120,7 +120,7 @@ export default function Class() {
                 </p>
               </CardContent>
             </Card>
-            {role !== 'guide' && (
+            {/* {role !== 'guide' && (
             <Card className="cursor-pointer" onClick={()=>handleClick("manage")}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
 
@@ -133,7 +133,7 @@ export default function Class() {
                 </p>
               </CardContent>
             </Card>
-            )}
+            )} */}
           </div>
         </div>
      

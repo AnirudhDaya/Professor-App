@@ -54,6 +54,7 @@ async function getTasks2(class_name:string) {
       teamMembers: project.members, // No team members information in the API response
       // abstract: project.project.abstract,
       // researchPapers: project.research_papers,
+      guide: project.project.guide,
       reports: project.reports, // No reports information in the API response
     }));
 
