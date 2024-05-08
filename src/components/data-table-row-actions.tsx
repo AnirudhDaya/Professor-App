@@ -83,7 +83,9 @@ export function DataTableRowActions<TData>({
   const [value, setValue] = React.useState("")
   const [professors, setProfessors] = React.useState<{ value: string; label: string }[]>([]);
   const task = taskSchema.parse(row.original)
-  const urlContainsReport = window.location.href.includes("report")
+  var urlContainsReport = false
+  if (typeof window !== 'undefined')
+   urlContainsReport = window.location.href.includes("report")
   const handleGuideAssign = async (e: any) => {
     e.preventDefault(); 
     dialogClose();

@@ -18,7 +18,9 @@ export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
-  const urlContainsDiary = window.location.href.includes("diary")
+  var urlContainsDiary = false
+  if (typeof window !== 'undefined')
+   urlContainsDiary = window.location.href.includes("diary")
 
   return (
     <div className="flex items-center justify-between">

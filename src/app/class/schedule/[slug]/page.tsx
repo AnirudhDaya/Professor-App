@@ -71,7 +71,7 @@ export default async function Schedule({
           formdata.append("ppt_type",pptval as string);
           if (res.status === 200) {
               const getppt = await fetch(
-              "https://proma-ai-uw7kj.ondigitalocean.app/get_presentations/",
+              "http://192.168.29.116:8000/get_presentations/",
               {
                 method: "POST",
                 body: formdata
@@ -82,7 +82,7 @@ export default async function Schedule({
               console.log("BAKAMONO", data);
 
               const tasks = data.map((ppt: any) => ({
-                id:  "6", // Convert id to string
+                id:  ppt.id.toString(), // Convert id to string
                 date: ppt.Date,
                 time: ppt.Time,
                 teamMembers: ppt.Members || [],
@@ -92,6 +92,7 @@ export default async function Schedule({
                 guide: ppt.Guide || "Not Assigned",
                 status: "done",
               }));
+              console.log("TASKS", tasks);
               return tasks;
             }
             // Optionally, update the class list on the dashboard
