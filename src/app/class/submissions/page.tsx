@@ -47,34 +47,45 @@ export default async function Submissions({
 
     const formdata = new FormData();
     formdata.append("batch", class_name);
-  
+    formdata.append("role",localStorage.getItem("role") || "coordinator");
     try {
-      const response = await fetch(
-        "https://proma-ai-uw7kj.ondigitalocean.app/Projects/",
-        {
-          method: "POST",
-          body: formdata,
-        }
-      );
-  
-      const data = await response.json();
-      console.log("BAKA MONO", data);
-  
-      // Extract the required data from the API response
-      const tasks = data.map((project: any) => ({
-        id: project.project.id.toString(), // Convert id to string
-        title: project.project.title,
-        status: project.project.status,
-        label: project.project.team, // Assuming 'team' is the label
-        priority: 'high', // No priority information in the API response
-        teamMembers: project.members, // No team members information in the API response
-        abstract: project.project.abstract,
-        researchPapers: project.research_papers,
-        reports: [], // No reports information in the API response
-        guide:  project.project.guide
-      }));
-  
-      return tasks;
+      const res = await fetch("/api/login", {
+        method: "GET",
+      });
+      if (res.status === 200) {
+        const val = await res.json();
+        const response = await fetch(
+          "https://proma-ai-uw7kj.ondigitalocean.app/Projects/",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Token ${val.token.value}`,
+              // "Content-Type": "application/json",
+            },
+            body: formdata,
+          }
+        );
+    
+        const data = await response.json();
+        console.log("BAKA MONO", data);
+    
+        // Extract the required data from the API response
+        const tasks = data.map((project: any) => ({
+          id: project.project.id.toString(), // Convert id to string
+          title: project.project.title,
+          status: project.project.status,
+          label: project.project.team, // Assuming 'team' is the label
+          priority: 'high', // No priority information in the API response
+          teamMembers: project.members, // No team members information in the API response
+          abstract: project.project.abstract,
+          researchPapers: project.research_papers,
+          reports: [], // No reports information in the API response
+          guide:  project.project.guide
+        }));
+    
+        return tasks;
+      }
+     
     } catch (error) {
       console.error("Error fetching tasks:", error);
       throw error;

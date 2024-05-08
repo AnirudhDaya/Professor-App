@@ -64,6 +64,8 @@ export default function DashboardPage() {
   
         if (res.status === 200) {
           const val  = await res.json();
+          const formdata = new FormData();
+          formdata.append("role", "coordinator");
             const getClasses = await fetch(
               "https://proma-ai-uw7kj.ondigitalocean.app/get_classes/",
               {
@@ -71,6 +73,7 @@ export default function DashboardPage() {
                 headers: {
                   Authorization: `Token ${val.token.value}`,
                 },
+                body: formdata,
               }
             );
             if (getClasses.status === 200) {
