@@ -71,7 +71,7 @@ export default async function Schedule({
           formdata.append("ppt_type",pptval as string);
           if (res.status === 200) {
               const getppt = await fetch(
-              "https://proma-ai-uw7kj.ondigitalocean.app/get_presentations/",
+              "https://pmt-u972l.ondigitalocean.app/get_presentations/",
               {
                 method: "POST",
                 body: formdata
@@ -193,7 +193,7 @@ export default async function Schedule({
 
 //     try {
 //       const response = await fetch(
-//         "https://proma-ai-uw7kj.ondigitalocean.app/getDiary/",
+//         "https://pmt-u972l.ondigitalocean.app/getDiary/",
 //         {
 //           method: "POST",
 //           body: formdata,

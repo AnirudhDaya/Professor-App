@@ -119,7 +119,7 @@ export default function Schedule({
           const val = await res.json();
 
           const getppt = await fetch(
-            "https://proma-ai-uw7kj.ondigitalocean.app/get_ppt_types/",
+            "https://pmt-u972l.ondigitalocean.app/get_ppt_types/",
             {
               method: "POST",
               body: formdata
@@ -207,7 +207,7 @@ export default function Schedule({
         console.log("Eda mone", formdata.get("batch_ref"));
         const val = await res.json();
         const response = await fetch(
-          "https://proma-ai-uw7kj.ondigitalocean.app/schedule_gen/",
+          "https://pmt-u972l.ondigitalocean.app/schedule_gen/",
           {
             method: "POST",
             // headers: {

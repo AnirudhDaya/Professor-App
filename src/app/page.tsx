@@ -67,7 +67,7 @@ export default function DashboardPage() {
           const formdata = new FormData();
           formdata.append("role", "coordinator");
             const getClasses = await fetch(
-              "https://proma-ai-uw7kj.ondigitalocean.app/get_classes/",
+              "https://pmt-u972l.ondigitalocean.app/get_classes/",
               {
                 method: "POST",
                 headers: {
@@ -135,7 +135,7 @@ export default function DashboardPage() {
         const val = await res.json();
         console.log("PUTA MADRE", formDataToSubmit.get("picture"));
         const response = await fetch(
-          "https://proma-ai-uw7kj.ondigitalocean.app/create_class/",
+          "https://pmt-u972l.ondigitalocean.app/create_class/",
           {
             method: "POST",
             headers: {

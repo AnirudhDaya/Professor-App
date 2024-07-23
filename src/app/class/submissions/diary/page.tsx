@@ -53,7 +53,7 @@ export default function Submissions({
 
     try {
       const response = await fetch(
-        "https://proma-ai-uw7kj.ondigitalocean.app/getDiary/",
+        "https://pmt-u972l.ondigitalocean.app/getDiary/",
         {
           method: "POST",
           body: formdata,

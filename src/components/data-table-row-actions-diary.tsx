@@ -36,7 +36,7 @@ export function DataTableRowActions<TData>({
     formdata.append("status", labelValue); // Use the clicked label value here
     try {
       const response = await fetch(
-        "https://proma-ai-uw7kj.ondigitalocean.app/ChangeDiaryStatus/",
+        "https://pmt-u972l.ondigitalocean.app/ChangeDiaryStatus/",
         {
           method: "POST",
           body: formdata,

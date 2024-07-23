@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
 
   // TODO: instead of userdetails return teaminformation 
   if(isPublicPath && sessionToken){
-    const res = await fetch('https://proma-ai-uw7kj.ondigitalocean.app/userdetails/', {
+    const res = await fetch('https://pmt-u972l.ondigitalocean.app/userdetails/', {
       method: 'POST',
       headers: {
         Authorization: `Token ${sessionToken}`,

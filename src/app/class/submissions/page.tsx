@@ -55,7 +55,7 @@ export default async function Submissions({
       if (res.status === 200) {
         const val = await res.json();
         const response = await fetch(
-          "https://proma-ai-uw7kj.ondigitalocean.app/Projects/",
+          "https://pmt-u972l.ondigitalocean.app/Projects/",
           {
             method: "POST",
             headers: {

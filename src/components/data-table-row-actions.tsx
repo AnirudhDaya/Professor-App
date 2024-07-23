@@ -99,7 +99,7 @@ export function DataTableRowActions<TData>({
       if (res.status === 200) {
         const val = await res.json();
         const response = await fetch(
-          "https://proma-ai-uw7kj.ondigitalocean.app/GuideAssign/",
+          "https://pmt-u972l.ondigitalocean.app/GuideAssign/",
           {
             method: "POST",
             // headers: {
@@ -145,7 +145,7 @@ export function DataTableRowActions<TData>({
     formdata.append("status", labelValue); // Use the clicked label value here
     try {
       const response = await fetch(
-        "https://proma-ai-uw7kj.ondigitalocean.app/ProjectStatusChange/",
+        "https://pmt-u972l.ondigitalocean.app/ProjectStatusChange/",
         {
           method: "POST",
           body: formdata,
@@ -175,7 +175,7 @@ export function DataTableRowActions<TData>({
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://proma-ai-uw7kj.ondigitalocean.app/getTeacherList/', {
+        const response = await fetch('https://pmt-u972l.ondigitalocean.app/getTeacherList/', {
           method: 'POST',
         }); // Replace with your API endpoint
         const data = await response.json();

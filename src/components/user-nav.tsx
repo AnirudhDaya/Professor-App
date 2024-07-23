@@ -56,7 +56,7 @@ export function UserNav() {
       const val = await res.json();
       // console.log(val.token.value);
       const signout = await fetch(
-        "https://proma-ai-uw7kj.ondigitalocean.app/logout/",
+        "https://pmt-u972l.ondigitalocean.app/logout/",
         {
           method: "POST",
           headers: {
